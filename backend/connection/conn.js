@@ -1,11 +1,10 @@
-require("dotenv").config();                            //  loads environment variables from a .env file into process.env
+//  loads environment variables from a .env file into process.env
 const mongoose = require("mongoose");                  // Used to connect and interact with MongoDB
 
 const conn = async () => {                             //  asynchronous function named (conn) to connects to MongoDB
     try {
-        console.log(process.env.MONGO_URI);
-        await mongoose.connect(`${process.env.MONGO_URI}`);             // Connects to MongoDB using the URI from the environment variable
-        
+        await mongoose.connect(`${process.env.MONGO_URI}`)             // Connects to MongoDB using the URI from the environment variable
+        console.log("Database Connected");
     } catch (error) {
         console.log(error);
     }

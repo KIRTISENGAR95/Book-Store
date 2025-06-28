@@ -1,12 +1,29 @@
-const express = require("express");        // import express js framework
-const app=express();                       // initilize express app
+const express = require("express");
+const dotenv = require("dotenv");
 
-const conn = require("./connection/conn");             // connect mongodb
-const PORT = process.env.PORT || 3000;                 // set server port
-conn();                                              // call the function
+dotenv.config();
 
+const app = express();
+const conn = require("./connection/conn");
 
+app.use(express.json());
 
-app.listen(PORT, () => {                             //
-    console.log(`server started at port ${PORT}`);
+const user = require("./routes/user");
+app.use("/api/v1",user);
+
+console.log(process.env.PORT)
+const PORT = process.env.PORT || 3000;                      
+
+app.listen(PORT, async () => {
+    await conn(); 
+    console.log(`Server started at port ${PORT}`);
+});
+
+app.get("/test", (req, res)=>{
+    res.send("Route Working");
+});
+
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).json({ message: 'Internal server error', error: err.message });
 });
