@@ -9,7 +9,9 @@ const conn = require("./connection/conn");
 app.use(express.json());
 
 const user = require("./routes/user");
+const Books = require("./routes/book");
 app.use("/api/v1",user);
+app.use("/api/v1",Books);
 
 console.log(process.env.PORT)
 const PORT = process.env.PORT || 3000;                      
@@ -25,5 +27,5 @@ app.get("/test", (req, res)=>{
 
 app.use((err, req, res, next) => {
     console.error(err.stack);
-    res.status(500).json({ message: 'Internal server error', error: err.message });
+    res.status(500).json({ message: "Internal server error", error: err.message });
 });
