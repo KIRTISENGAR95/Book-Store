@@ -17,7 +17,7 @@ const book = new mongoose.Schema(
             type:Number,
             required:true,
         },
-        dec:{
+        desc:{
             type:String,
             required:true,
         },

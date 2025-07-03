@@ -10,8 +10,10 @@ app.use(express.json());
 
 const user = require("./routes/user");
 const Books = require("./routes/book");
+const Favourite = require("./routes/favourite");
 app.use("/api/v1",user);
 app.use("/api/v1",Books);
+app.use("/api/v1",Favourite);
 
 console.log(process.env.PORT)
 const PORT = process.env.PORT || 3000;                      
