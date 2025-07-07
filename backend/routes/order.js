@@ -86,11 +86,11 @@ router.put("/update-status/:id",authenticateToken,async (req,res)=>{
         await Order.findByIdAndUpdate(id,{status:req.body.status});
         return res.json({
             status:"Success",
-            message:"Status Updated Successfully",
+            message:"Status Updated Succesfully",
         });
     } catch (error) {
         console.log(error);
         return res.status(500).json({message:"An error occurred"});
     }
-});
+})
 module.exports = router;
