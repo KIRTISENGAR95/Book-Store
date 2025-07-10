@@ -1,6 +1,6 @@
 import React from "react";
-const AllBooks=()=>{
-    return <div>AllBooks</div>
+const SignUp=()=>{
+    return <div>SignUp</div>
 };
 
-export default AllBooks;
+export default SignUp;

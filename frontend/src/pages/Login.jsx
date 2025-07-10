@@ -1,6 +1,6 @@
 import React from "react";
-const AllBooks=()=>{
-    return <div>AllBooks</div>
+const LogIn=()=>{
+    return <div>LogIn</div>
 };
 
-export default AllBooks;
+export default LogIn;
