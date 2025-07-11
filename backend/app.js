@@ -2,6 +2,7 @@ const express = require("express");
 const dotenv = require("dotenv");
 
 dotenv.config();
+const cors = require("cors");
 
 const app = express();
 const conn = require("./connection/conn");
@@ -14,7 +15,7 @@ const Favourite = require("./routes/favourite");
 const Cart = require("./routes/cart");
 const Order = require("./routes/order");
 
-
+app.use(cors());
 
 app.use("/api/v1",user);
 app.use("/api/v1",Books);
