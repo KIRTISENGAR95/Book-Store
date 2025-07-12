@@ -12,7 +12,7 @@ import SignUp from "./pages/SignUp";
 const App=()=>{
   return(
     <div>
-      <Router>
+      
         <Navbar />
         <Routes>
           <Route exact path="/" element={<Home/>}></Route>
@@ -23,7 +23,7 @@ const App=()=>{
           <Route path="/LogIn" element={<LogIn/>}></Route>
         </Routes>
         <Footer/>
-      </Router>
+      
     </div>
   )
 };
