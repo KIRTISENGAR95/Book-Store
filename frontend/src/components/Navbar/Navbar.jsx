@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 import { FaGripLines } from "react-icons/fa";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 const Navbar = () =>{
     const links = [
         {
@@ -14,11 +14,11 @@ const Navbar = () =>{
         },
         {
             title:"Cart",
-            link:"/cart",
+            link:"/Cart",
         },
         {
             title:"Profile",
-            link:"/profile",
+            link:"/Profile",
         },
     ];
 
@@ -82,12 +82,7 @@ const Navbar = () =>{
                     </Link>
                 ))}
                   
-                    <Link
-                    to="/LogIn" 
-                    className={`px-4 mb-8 text-3xl font-semibold py-2 border-blue-500 rounded text-white hover:bg-white hover:text-zinc-800 transition-all duration-300`}>Login</Link>
-                    <Link 
-                    to="/SignUp"
-                    className={`px-4 mb-8 text-3xl font-semibold py-2 bg-blue-500 rounded hover:bg-white hover:text-zinc-800 transition-all duration-300`}>SignUp</Link>
+            
                 
             </div>
         </>
