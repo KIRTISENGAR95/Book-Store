@@ -11,8 +11,8 @@ const SignUp=()=>{
         password:"", 
         address:""
     });
-    const [error, setError] = useState("");
-    const [loading, setLoading] = useState(false);
+    // const [error, setError] = useState("");
+    // const [loading, setLoading] = useState(false);
 
     const navigate = useNavigate();
     const change = (e)=>{
@@ -27,7 +27,8 @@ const SignUp=()=>{
                 Values.username === "" || 
                 Values.email === "" || 
                 Values.password === "" || 
-                Values.address === ""){
+                Values.address === ""
+            ){
                 alert("All fields are required");
             }else{
                 const response= await axios.post("http://localhost:3000/api/v1/sign-up",
@@ -37,7 +38,7 @@ const SignUp=()=>{
                 navigate("/LogIn");
             }
         } catch (error) {
-            console.log(error);
+            alert(error.response.data.message);
         }
     };
 

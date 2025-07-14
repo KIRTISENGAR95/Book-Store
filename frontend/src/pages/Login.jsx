@@ -11,8 +11,8 @@ const LogIn=()=>{
         
     });
 
-    const [error, setError] = useState("");
-    const [loading, setLoading] = useState(false);
+    // const [error, setError] = useState("");
+    // const [loading, setLoading] = useState(false);
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -31,7 +31,9 @@ const LogIn=()=>{
                 setLoading(false);
                 return;
             }
-            const response = await axios.post("http://localhost:3000/api/v1/sign-in", Values);
+            const response = await axios.post("http://localhost:3000/api/v1/sign-in", 
+                Values
+            );
 
             dispatch(authActions.login());
             dispatch(authActions.changeRole(response.data.role));
@@ -41,14 +43,16 @@ const LogIn=()=>{
             navigate("/profile");
             
         } catch (error) {
-            if (error.response && error.response.data && error.response.data.message) {
-                setError(error.response.data.message);
-            } else {
-                setError("Login failed. Please try again.");
-            }
-        } finally {
-            setLoading(false);
+            alert(error.response.data.message);
+            // if (error.response && error.response.data && error.response.data.message) {
+            //     setError(error.response.data.message);
+            // } else {
+            //     setError("Login failed. Please try again.");
+            // }
         }
+            // finally {
+            //     setLoading(false);
+            // }
     };
 
 
