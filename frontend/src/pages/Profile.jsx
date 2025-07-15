@@ -4,7 +4,6 @@ import { Outlet } from "react-router-dom";
 import { useSelector } from "react-redux";
 import axios from "axios";
 const Profile=()=>{
-    // const isLoggedIn = useSelector();
     const[Profile,setProfile] = useState();
     const headers={
         id:localStorage.getItem("id"),

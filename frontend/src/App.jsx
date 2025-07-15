@@ -12,6 +12,7 @@ import AllBooks from "./pages/AllBooks";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { authActions } from "./store/auth";
+import UserOrderHistory from "./components/Profile/UserOrderHistory";
 const App=()=>{
   const dispatch = useDispatch();
   const role = useSelector((state)=> state.auth.role);
@@ -32,7 +33,11 @@ const App=()=>{
           <Route exact path="/" element={<Home/>}></Route>
           <Route path="/all-books" element={<Home/>}></Route>
           <Route path="/Cart" element={<Cart/>} />
-          <Route path="/Profile" element={<Profile/>} />
+          <Route path="/profile" element={<Profile/>} >
+            <Route index element={<Favourites/>}/>
+            <Route path="/profile/orderHistory" element={<UserOrderHistory/>}/>
+            <Route path="/profile/settings" element={<Settings/>}/>
+          </Route>
           <Route path="/SignUp" element={<SignUp/>} />
           <Route path="/LogIn" element={<LogIn/>}></Route>
         </Routes>

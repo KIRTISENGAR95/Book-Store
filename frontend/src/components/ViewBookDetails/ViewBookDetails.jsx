@@ -1,0 +1,68 @@
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { FaHeart, FaShoppingCart } from "react-icons/fa";
+import { GrLanguage } from "react-icons/gr";
+import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+
+const ViewDetails = () => {
+    const { id } = useParams();
+    const [data, setData] = useState();
+    const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+    const role = useSelector((state) => state.auth.role);
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios.get(
+                    `http://localhost:3000/api/v1/get-book-by-id/${id}`
+                );
+                setData(response.data.data);
+            } catch (error) {
+                console.error(error);
+            }
+        };
+        fetchData();
+    }, [id]);
+    return (
+        <>
+            {data && (
+                <div className="px-4 md:px-12 py-8 bg-zinc-900 flex flex-col md:flex-row gap-8">
+                    <div className="w-full lg:w-3/6 flex justify-around">
+                        <div className="flex justify-around bg-zinc-800 p-12 rounded">
+                            <img
+                                src={data.url}
+                                alt="/"
+                                className="h-[50vh] lg:h-[70vh] rounded"
+                            />
+                            {isLoggedIn === true && role === "user" && (
+                                <div className="flex md:flex-col">
+                                    <button className="bg-white rounded-full text-3xl p-3 text-red-500">
+                                        <FaHeart />
+                                    </button>
+                                    <button className="bg-white rounded-full text-3xl p-3 mt-4 text-blue-500">
+                                        <FaShoppingCart />
+                                    </button>
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                    <div className="p-4 w-full lg:w-3/6">
+                        <h1 className="text-4xl text-zinc-300 font-semibold">
+                            {data.title}
+                        </h1>
+                        <p className="text-zinc-400 mt-1">by {data.author}</p>
+                        <p className="text-zinc-500 mt-4 text-xl">{data.desc}</p>
+                        <p className="flex mt-4 items-center justify-start text-zinc-400">
+                            <GrLanguage className="me-3" />{data.language}
+                        </p>
+                        <p className="mt-4 text-zinc-100 text-3xl font-semibold">
+                            Price: {data.price} {" "}
+                        </p>
+                    </div>
+                </div>
+            )}
+        </>
+    );
+};
+
+export default ViewDetails;

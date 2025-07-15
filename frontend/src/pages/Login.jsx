@@ -11,9 +11,6 @@ const LogIn=()=>{
         
     });
 
-    // const [error, setError] = useState("");
-    // const [loading, setLoading] = useState(false);
-
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const change = (e)=>{
@@ -44,15 +41,9 @@ const LogIn=()=>{
             
         } catch (error) {
             alert(error.response.data.message);
-            // if (error.response && error.response.data && error.response.data.message) {
-            //     setError(error.response.data.message);
-            // } else {
-            //     setError("Login failed. Please try again.");
-            // }
+            
         }
-            // finally {
-            //     setLoading(false);
-            // }
+            
     };
 
 
