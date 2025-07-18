@@ -1,4 +1,7 @@
 import React from "react";
+import { FaArrowRightFromBracket } from "react-icons/fa6";
+import { Link } from "react-router-dom";
+
 const Sidebar=({data})=>{
     return (
         <div className="bg-zinc-800 p-4 rounded flex flex-col items-center justify-between h-[100%]">
@@ -8,11 +11,11 @@ const Sidebar=({data})=>{
                 <p className="mt-3 text-xl text-zinc-100 font-semibold">
                     {data.username}
                 </p>
-                <p classname="mt-1 text-normal text-zinc-300">{data.email}</p>
-                <div classname="w-full mt-4 h-[1px] bg-zinc-500 hidden lg:block"></div>
+                <p className="mt-1 text-normal text-zinc-300">{data.email}</p>
+                <div className="w-full mt-4 h-[1px] bg-zinc-500 hidden lg:block"></div>
             </div>
 
-            <div classname="w-full flex-col items-center justify-center hidden lg:flex">
+            <div className="w-full flex-col items-center justify-center hidden lg:flex">
                 <Link
                     to="/profile"
                     className="text-zinc-100 font-semibold w-full py-2 text-center hover:bg-zinc-900 rounded transition-all duration-300"

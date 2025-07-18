@@ -12,6 +12,8 @@ const SignUp=()=>{
         address:""
     });
 
+    const [error, setError] = useState("");
+    const [loading, setLoading] = useState(false);
 
     const navigate = useNavigate();
     const change = (e)=>{

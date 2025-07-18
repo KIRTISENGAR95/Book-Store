@@ -2,17 +2,18 @@ import React, { useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
 import Footer from "./components/Navbar/Footer";
 import Navbar from "./components/Navbar/Navbar";
+import Favourites from "./components/Profile/Favourites";
 import Cart from "./pages/Cart";
 import Home from "./pages/Home";
 import LogIn from "./pages/Login";
 import Profile from "./pages/Profile";
 import SignUp from "./pages/SignUp";
-import AllBooks from "./pages/AllBooks";
 // import ViewBookDetails from "./components/ViewBookDetails/ViewBookDetails";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
-import { authActions } from "./store/auth";
+import { useDispatch, useSelector } from "react-redux";
+import Settings from "./components/Profile/Settings";
 import UserOrderHistory from "./components/Profile/UserOrderHistory";
+import { authActions } from "./store/auth";
+
 const App=()=>{
   const dispatch = useDispatch();
   const role = useSelector((state)=> state.auth.role);

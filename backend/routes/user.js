@@ -92,7 +92,7 @@ router.post("/sign-in", async (req, res) => {
 
 router.get("/get-user-information",authenticateToken ,async(req,res)=>{
     try {
-        const { id } = req.body;
+        const { id } = req.user;
         const data = await User.findById(id).select('-password');
         return res.status(200).json(data);
     } catch (error) {

@@ -1,8 +1,8 @@
 import axios from "axios";
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { authActions } from "../store/auth";
-import { useDispatch } from "react-redux";
 
 const LogIn=()=>{
     const [Values,setValues ] = useState({ 
@@ -10,6 +10,9 @@ const LogIn=()=>{
         password:"" 
         
     });
+
+    const [error, setError] = useState("");
+    const [loading, setLoading] = useState(false);
 
     const navigate = useNavigate();
     const dispatch = useDispatch();

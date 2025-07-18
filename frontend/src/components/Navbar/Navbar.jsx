@@ -42,23 +42,25 @@ const Navbar = () =>{
             </div>
             <div className="nav-links-MyBookStore block md:flex items-center gap-4">
                 <div className="hidden md:flex gap-4">
-                    {links.map((items,i)=>(
-                    <div className="flex items-center">
-                        {items.title === "Profile" ? <Link 
-                        to={items.link}
-                        className="px-4 py-1 border-blue-500 rounded hover:bg-white hover:text-zinc-800 transition-all duration-300" 
-                        key={i}
-                    >
-                        {items.title}
-                    </Link>:<Link 
-                    to={items.link}
-                    className="hover:text-blue-500 transition-all duration-300" 
-                    key={i}
-                    >
-                        {items.title}{" "}
-                    </Link>}
-                    </div>
-                ))}
+                    {links.map((items, i) => (
+                        <div className="flex-items-center" key={i}>
+                            {items.title === "Profile" ? 
+                                <Link 
+                                    to={items.link}
+                                    className="px-4 py-1 border-blue-500 rounded hover:bg-white hover:text-zinc-800 transition-all duration-300"
+                                >
+                                    {items.title}
+                                </Link>
+                                :
+                                <Link 
+                                    to={items.link}
+                                    className="hover:text-blue-500 transition-all duration-300"
+                                >
+                                    {items.title}{" "}
+                                </Link>
+                            }
+                        </div>
+                    ))}
                 </div>
 
                 {isLoggedIn === false &&(
