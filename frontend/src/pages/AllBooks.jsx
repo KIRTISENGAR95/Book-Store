@@ -16,12 +16,13 @@ const AllBooks=()=>{
 
 
     return <div className="bg-zinc-900 px-4 h-auto px-12 py-8">
+        {" "}
         <h4 className="text-3xl text-yellow-100">All books</h4>
 
     {!Data && (
-        <div className="flex items-center justify-center my-8">
-            <Loader/>{" "}
-        </div>
+       <div className="w-full h-screen flex items-center justify-center">
+       <Loader/>{" "}
+   </div>
     )}
     <div className="my-8 grid grid-cols-1 sm:grid-cols-4 gap-8">
         {Data && Data.map((items,i) => <div key={i}> <BookCard data={items}/>{" "} </div>)}
