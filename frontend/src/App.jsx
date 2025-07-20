@@ -35,12 +35,15 @@ const App=()=>{
           <Route path="/all-books" element={<Home/>}></Route>
           <Route path="/Cart" element={<Cart/>} />
           <Route path="/profile" element={<Profile/>} >
-            <Route index element={<Favourites/>}/>
+            {role === "user" ? <Route index element={<Favourites/>}/> : <Route index element={<AllOrders/>}/>}
+            {role === "admin" && <Route path="/profile/add-book" element={<AddBook/>}/>}
             <Route path="/profile/orderHistory" element={<UserOrderHistory/>}/>
             <Route path="/profile/settings" element={<Settings/>}/>
           </Route>
-          <Route path="/SignUp" element={<SignUp/>} />
-          <Route path="/LogIn" element={<LogIn/>}></Route>
+          <Route path="/signup" element={<SignUp/>} />
+          <Route path="/login" element={<LogIn/>} />
+          <Route path="/updateBook/:id" element={<UpdateBook/>} />
+          <Route path ="view-book-details/:id" element={<ViewBookDetails/>} />
         </Routes>
         <Footer/>
     </div>

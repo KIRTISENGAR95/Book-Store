@@ -7,9 +7,11 @@ import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { FaEdit } from "react-icons/md";
 import { MdOutlineDelete } from "react-icons/md";
+import { Link,useNavigate } from "react-router-dom";
 
 const ViewDetails = () => {
     const { id } = useParams();
+    const navigate = useNavigate();
     const [Data, setData] = useState();
     const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
     const role = useSelector((state) => state.auth.role);
@@ -46,7 +48,12 @@ const ViewDetails = () => {
         const response = await axios.put("http://localhost:3000/api/v1/add-to-cart",{},{headers});
 
         alert(response.data.message);
-    }
+    };
+    const deleteBook = async ()=>{
+        const response = await axios.delete("http://localhost:3000/api/v1/delete-book",{headers})
+    };
+    alert(response.data.message);
+    navigate("/all-books");
     return (
         <>
             {Data && (
@@ -73,11 +80,13 @@ const ViewDetails = () => {
 
                             {isLoggedIn === true && role === "admin" && (
                                 <div className="flex flex-col md:flex-row lg:flex-col items-center justify-between lg:justify-start mt-8 lg:mt-0">
-                                    <button className="bg-white rounded-full text-4xl lg:text-3xl p-3 flex items-center justify-center">
+                                    <Link 
+                                        to={`/updateBook/${id}`}
+                                        className="bg-white rounded-full text-4xl lg:text-3xl p-3 flex items-center justify-center">
                                         <FaEdit />{" "}
                                         <span className="ms-4 block lg:hidden">Edit</span>
-                                    </button>
-                                    <button className="text-red-500 rounded lg:rounded-full text-4xl lg:text-3xl p-3 md:mt-0 lg:mt-8 bg:white flex items-center justify-center">
+                                    </Link>
+                                    <button className="text-red-500 rounded lg:rounded-full text-4xl lg:text-3xl p-3 md:mt-0 lg:mt-8 bg:white flex items-center justify-center" onclick={deleteBook}>
                                         <FaShoppingCart />{" "}
                                         <span className="ms-4 block lg:hidden">Delete Book</span>
                                     </button>
