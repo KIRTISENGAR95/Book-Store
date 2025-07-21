@@ -1,6 +1,6 @@
 import React from "react";
 import { FaArrowRightFromBracket } from "react-icons/fa6";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {useDispatch,useSelector} from "react-redux";
 import {authActions} from "../../store/auth";
 

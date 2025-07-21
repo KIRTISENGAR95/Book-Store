@@ -1,13 +1,9 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import Loader from "../Loader/Loader";
-import { FaHeart, FaShoppingCart } from "react-icons/fa";
+import { FaEdit, FaHeart, FaShoppingCart } from "react-icons/fa";
 import { GrLanguage } from "react-icons/gr";
 import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
-import { FaEdit } from "react-icons/md";
-import { MdOutlineDelete } from "react-icons/md";
-import { Link,useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 const ViewDetails = () => {
     const { id } = useParams();
@@ -34,9 +30,9 @@ const ViewDetails = () => {
     }, []);
 
     const headers = {
-        id:localStorage.getItem("id"),
-        authorization:`Bearer ${localStorage.getItem("token")}`,
-        bookid:id,
+        id: localStorage.getItem("id"),
+        authorization: `Bearer ${localStorage.getItem("token")}`,
+        bookid: id,
     };
     const handleFavourite = async () =>{
         const response = await axios.put("http://localhost:3000/api/v1/add-book-to-favourite",{},{headers});

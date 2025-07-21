@@ -10,8 +10,12 @@ import Profile from "./pages/Profile";
 import SignUp from "./pages/SignUp";
 // import ViewBookDetails from "./components/ViewBookDetails/ViewBookDetails";
 import { useDispatch, useSelector } from "react-redux";
+import ViewBookDetails from "../src/components/ViewBookDetails/ViewBookDetails";
 import Settings from "./components/Profile/Settings";
 import UserOrderHistory from "./components/Profile/UserOrderHistory";
+import AddBook from "./pages/AddBook";
+import AllOrders from "./pages/AllOrders";
+import UpdateBook from "./pages/UpdateBook";
 import { authActions } from "./store/auth";
 
 const App=()=>{

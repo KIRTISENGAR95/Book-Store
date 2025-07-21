@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
 import Loader from "../components/Loader/Loader";
+import MobileNav from "../components/Profile/MobileNav";
 import Sidebar from "../components/Profile/sidebar";
 const Profile=()=>{
     const[Profile,setProfile] = useState();
