@@ -21,13 +21,12 @@ const ViewDetails = () => {
     useEffect(() => {
         const fetch = async () => {
             const response = await axios.get(
-                "http://localhost:3000/api/v1/get-user-information",
-                { headers }
+                `http://localhost:3000/api/v1/get-book-by-id/${id}`
             );
-            setProfile(response.data);
+            setData(response.data.data);
         };
         fetch();
-    }, []);
+    }, [id]);
 
     const headers = {
         id: localStorage.getItem("id"),
@@ -57,9 +56,10 @@ const ViewDetails = () => {
                     <div className="w-full lg:w-3/6 flex justify-around">
                         <div className="flex justify-around bg-zinc-800 p-12 rounded">
                             <img
-                                src="https://m.media-amazon.com/images/I/61zVyqJvZeL._SY466_.jpg"
-                                alt="/"
+                                src={Data.url}
+                                alt={Data.title || "Book cover"}
                                 className="h-[50vh] lg:h-[70vh] rounded"
+                                onError={e => { e.target.onerror = null; e.target.src = "https://via.placeholder.com/150?text=No+Image"; }}
                             />
                             {isLoggedIn === true && role === "user" && (
                                 <div className="flex md:flex-row lg:flex-col items-center justify-between lg:justify-start mt-8 lg:mt-0">
