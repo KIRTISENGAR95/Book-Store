@@ -1,8 +1,8 @@
-import React,{useState,useEffect} from "react";
-import Loader from "../components/Loader/Loader";
 import axios from "axios";
-import {AiFillDelete } from "react-icons/ai";
-import {useNavigate} from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { AiFillDelete } from "react-icons/ai";
+import { useNavigate } from "react-router-dom";
+import Loader from "../components/Loader/Loader";
 const Cart=()=>{
     const navigate = useNavigate();
     const [cart,setCart] = useState();
@@ -21,7 +21,7 @@ const Cart=()=>{
             setCart(res.data.data);
         };
         fetch();
-    },[Cart]);
+    },[cart]);
 
 
     const deleteItem = async(bookid)=>{
@@ -34,20 +34,19 @@ const Cart=()=>{
     };
 
     useEffect(()=>{
-        if(Cart && Cart.length >0){
-            let total =0;
-            Cart.map((item)=>{
-                total += items.price;
+        if(cart && cart.length > 0){
+            let total = 0;
+            cart.forEach((item)=>{
+                total += item.price;
             });
             setTotal(total);
-            total=0;
         }
-    },[Cart]);
+    },[cart]);
     const PlaceOrder = async()=>{
         try {
             const response = await axios.post(
                 `http://localhost:3000/api/v1/place-order`,
-                {order:Cart},
+                {order:cart},
                 {headers}
             );
             alert(response.data.message);
@@ -59,12 +58,12 @@ const Cart=()=>{
 
 
     return <div className="bg-zinc-900 px-12 h-screen py-8">
-        {!Cart && (
+        {!cart && (
             <div className="w-full h-[100%] flex items-center justify-center">
                 <Loader/>{" "}
             </div>
         )}
-        {Cart && Cart.length === 0 && (
+        {cart && cart.length === 0 && (
             <div className="h-screen">
                 <div className="h-[100%] flex items-center justify-center flex-col">
                     <h1 className="text-5xl lg:text-6xl font-semibold text-zinc-400">
@@ -72,19 +71,19 @@ const Cart=()=>{
 
                     </h1>
                     <img
-                        src=""
+                        src="https://imgs.search.brave.com/wW0_Yr1fteafDnBjSo0ZowK-8hLAnmi-r6xKZaZxccQ/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5pc3RvY2twaG90/by5jb20vaWQvMTU3/NTU4OTI0L3Bob3Rv/L2ZseWluZy1ib29r/LmpwZz9zPTYxMng2/MTImdz0wJms9MjAm/Yz1Ob1lmZ1lhd1pk/aGhGdU5WV2VmMTd2/bzFqdnpDMk5rUTB6/Z2ZST0RsMGRnPQ"
                         alt="empty cart"
                         className="lg:h-[50vh]"
                     />
                 </div>
             </div>
         )}
-        {Cart && Cart.length > 0 && (
+        {cart && cart.length > 0 && (
             <>
                 <h1 className="text-5xl font-semibold text-zinc-500 mb-8">
                     Your Cart
                 </h1>
-                {Cart.map((items,i)=>(
+                {cart.map((items,i)=>(
                     <div className="w-full my-4 rounded flex flex-col md:flex-row p-4 bg-zinc-800 justify-between items-center"
                         key={i}
                     >
@@ -120,14 +119,14 @@ const Cart=()=>{
                     ))}
             </>
         )}
-        {Cart && Cart.length>0 (
+        {cart && cart.length > 0 && (
             <div className="mt-4 w-full flex items-center justify-end">
                 <div className="p-4 bg-zinc-800 rounded">
                     <h1 className="text-3xl text-zinc-200 font-semibold">
                         Total Amount
                     </h1>
                     <div className="mt-3 flex items-center justify-between text-xl text-zinc-200">
-                        <h2>{Cart.length} books</h2> <h2>{Total}</h2>
+                        <h2>{cart.length} books</h2> <h2>{Total}</h2>
                     </div>
                     <div className="w-[100%] mt-3">
                         <button

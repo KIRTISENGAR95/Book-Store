@@ -5,7 +5,8 @@ const{authenticateToken} = require("./userAuth");
 
 router.put("/add-book-to-favourite",authenticateToken, async(req,res)=>{
     try {
-        const { bookid, id} = req.headers;
+        const { bookid } = req.headers;
+        const id = req.user.id;
         const userData = await User.findById(id);
         const isBookFavourite = userData.favourites.includes(bookid);
         if(isBookFavourite){
@@ -22,7 +23,8 @@ router.put("/add-book-to-favourite",authenticateToken, async(req,res)=>{
 
 router.put("/remove-book-from-favourite",authenticateToken, async(req,res)=>{
     try {
-        const { bookid, id} = req.headers;
+        const { bookid } = req.headers;
+        const id = req.user.id;
         const userData = await User.findById(id);
         const isBookFavourite = userData.favourites.includes(bookid);
         if(isBookFavourite){
@@ -38,8 +40,11 @@ router.put("/remove-book-from-favourite",authenticateToken, async(req,res)=>{
 
 router.get("/get-favourite-books",authenticateToken,async(req,res)=>{
     try {
-        const{ id }=req.headers;
+        const id = req.user.id;
         const userData = await User.findById(id).populate("favourites");
+        if (!userData) {
+            return res.status(404).json({ message: "User not found" });
+        }
         const favouriteBooks = userData.favourites;
         return res.json({
             status:"Success",

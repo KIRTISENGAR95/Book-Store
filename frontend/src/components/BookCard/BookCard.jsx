@@ -19,7 +19,12 @@ const BookCard = ({ data , favourite}) =>{
             <Link to={`/view-book-details/${data._id}`}>
                 <div className="">
                     <div className="bg-zinc-900 rounded flex items-center justify-center">
-                        <img src={data.url} alt="/" className="h-[20vh]"/>
+                        <img 
+                            src={data.url}
+                            alt={data.title || "Book cover"}
+                            className="h-[20vh]"
+                            onError={e => { e.target.onerror = null; e.target.src = "https://via.placeholder.com/150?text=No+Image"; }}
+                        />
                     </div>
                     <h2 className="mt-4 text-xl text-white font-semibold">{data.title}</h2>
                     <p className="mt-2 text-zinc-400 font-semibold">by {data.author}</p>

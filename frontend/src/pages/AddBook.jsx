@@ -1,13 +1,13 @@
-import React from "react";
 import axios from "axios";
+import React from "react";
 const AddBook = () =>{
     const [Data, setData] = useState({
-        url:"",
-        title:"",
-        author:"",
-        price:"",
-        desc:"",
-        language:"",
+        url:"https://m.media-amazon.com/images/I/3184Ow%2BXPvL._SX342_SY445_QL70_FMwebp_.jpg",
+        title:"Bound by your spirit",
+        author:"Vandana",
+        price:"49",
+        desc:"Set in ancient Jaipur, \"Bound by Your Spirit\" is a captivating tale of love, loss, and mystery. Ansuya's life is torn between the haunting memories of her lost love, Ram, and her burgeoning bond with Prince Manvik. As secrets unravel and betrayals emerge, Ansuya faces impossible choices that will shape her destiny. With a perfect blend of romance, intrigue, and the supernatural, this gripping novel will keep you on the edge of your seat, eager to discover how past and present collide in a story of enduring love and redemption.",
+        language:"English",
     });
 
     const headers={
@@ -59,7 +59,7 @@ const AddBook = () =>{
                         name="url"
                         required
                         value={Data.url}
-                        onchange={change}
+                        onChange={change}
                     />
                 </div>
                 <div className="mt-4">
@@ -73,7 +73,7 @@ const AddBook = () =>{
                         name="title"
                         required
                         value={Data.title}
-                        onchange={change}
+                        onChange={change}
                     />
                 </div>
                 <div className="mt-4">

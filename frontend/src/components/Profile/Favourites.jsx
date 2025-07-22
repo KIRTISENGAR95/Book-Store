@@ -30,7 +30,7 @@ const Favourites=()=>{
 
             <div className="grid grid-cols-4 gap-4">
             
-                {FavouriteBooks && Favourites.map((items,i)=>(
+                {FavouriteBooks && FavouriteBooks.map((items,i)=>(
                     <div key={i}>
                         <BookCard data={items} favourite={true}/>
                     </div>
