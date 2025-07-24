@@ -1,3 +1,4 @@
+import axios from "axios";
 import React from "react";
 import { Link } from "react-router-dom";
 const BookCard = ({ data , favourite}) =>{
@@ -20,7 +21,7 @@ const BookCard = ({ data , favourite}) =>{
                 <div className="">
                     <div className="bg-zinc-900 rounded flex items-center justify-center">
                         <img 
-                            src={"https://imgs.search.brave.com/uyg7VW51CSGeU9HO-3KqiIRCjr1ohMPHZhPkA4bUfN4/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jZG4u/cGl4YWJheS5jb20v/cGhvdG8vMjAxOC8w/MS8xNy8xOC80My9i/b29rLTMwODg3NzVf/NjQwLmpwZw"}
+                            src={data.image || "https://m.media-amazon.com/images/I/815R8kOqfHL._SL1500_.jpg"}
                             alt={data.title || "Book cover"}
                             className="h-[20vh]"
                             onError={e => { e.target.onerror = null; e.target.src = "https://via.placeholder.com/150?text=No+Image"; }}

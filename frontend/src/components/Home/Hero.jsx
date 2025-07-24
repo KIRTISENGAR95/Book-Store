@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 
 const Hero = ()=>{
     return(
@@ -12,11 +11,7 @@ const Hero = ()=>{
                 uncover captivating stories,enriching knowledge
             </p>
             <div className="mt-8">
-                <Link 
-                    to="/all-books"
-                    className="text-yellow-100 text-xl lg:text-2xl font-semibold border border-yellow-100 px-10 py-3 hover:bg-zinc-800 rounded-full">
-                    Discover Books
-                </Link>
+                {/* Discover Books button removed as requested */}
             </div>
             </div>
             <div className="w-full lg:w-3/6 h-auto lg:h-[100%] flex items-center justify-center">

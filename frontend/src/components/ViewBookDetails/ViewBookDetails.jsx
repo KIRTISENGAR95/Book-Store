@@ -15,15 +15,23 @@ const ViewDetails = () => {
     const [loading, setLoading] = useState(false);
     const [Profile, setProfile] = useState();
 
-
-  
-
     useEffect(() => {
         const fetch = async () => {
-            const response = await axios.get(
-                `http://localhost:3000/api/v1/get-book-by-id/${id}`
-            );
-            setData(response.data.data);
+            if (id === "manual-added-1") {
+                setData({
+                    title: "Once We WERE Together",
+                    author: "Vandana",
+                    price: 59,
+                    desc: "She Can't Be Her is a novel by Vandana, published by BookLeaf Publishing. The story follows Ethan, who spends seven days with a woman that changes his life. He waits for her return for fifteen years, visiting the same spot annually with no success. One day, he encounters a stranger who alters the course of his life. The book explores themes of waiting, hope, and destiny, questioning if the new encounter is the intended fulfillment of his desire or a distraction.",
+                    language: "English",
+                    image: "https://m.media-amazon.com/images/I/61zVyqJvZeL._SL1499_.jpg"
+                });
+            } else {
+                const response = await axios.get(
+                    `http://localhost:3000/api/v1/get-book-by-id/${id}`
+                );
+                setData(response.data.data);
+            }
         };
         fetch();
     }, [id]);
@@ -44,11 +52,15 @@ const ViewDetails = () => {
 
         alert(response.data.message);
     };
-    const deleteBook = async ()=>{
-        const response = await axios.delete("http://localhost:3000/api/v1/delete-book",{headers})
+    const deleteBook = async () => {
+        try {
+            const response = await axios.delete("http://localhost:3000/api/v1/delete-book", { headers });
+            alert(response.data.message);
+            navigate("/all-books");
+        } catch (err) {
+            alert("Failed to delete book.");
+        }
     };
-    alert(response.data.message);
-    navigate("/all-books");
     return (
         <>
             {Data && (
@@ -56,7 +68,7 @@ const ViewDetails = () => {
                     <div className="w-full lg:w-3/6 flex justify-around">
                         <div className="flex justify-around bg-zinc-800 p-12 rounded">
                             <img
-                                src={Data.url}
+                                src={Data.image || "https://m.media-amazon.com/images/I/815R8kOqfHL._SL1500_.jpg"}
                                 alt={Data.title || "Book cover"}
                                 className="h-[50vh] lg:h-[70vh] rounded"
                                 onError={e => { e.target.onerror = null; e.target.src = "https://via.placeholder.com/150?text=No+Image"; }}
@@ -82,7 +94,7 @@ const ViewDetails = () => {
                                         <FaEdit />{" "}
                                         <span className="ms-4 block lg:hidden">Edit</span>
                                     </Link>
-                                    <button className="text-red-500 rounded lg:rounded-full text-4xl lg:text-3xl p-3 md:mt-0 lg:mt-8 bg:white flex items-center justify-center" onclick={deleteBook}>
+                                    <button className="text-red-500 rounded lg:rounded-full text-4xl lg:text-3xl p-3 md:mt-0 lg:mt-8 bg:white flex items-center justify-center" onClick={deleteBook}>
                                         <FaShoppingCart />{" "}
                                         <span className="ms-4 block lg:hidden">Delete Book</span>
                                     </button>
