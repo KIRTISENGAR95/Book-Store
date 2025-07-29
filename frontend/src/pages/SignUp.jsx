@@ -36,7 +36,13 @@ const SignUp=()=>{
                     Values
                 );
                 alert(response.data.message);
-                navigate("/LogIn");
+                if (response.data.token && response.data._id) {
+                    localStorage.setItem("id", response.data._id);
+                    localStorage.setItem("token", response.data.token);
+                    navigate("/profile");
+                } else {
+                    navigate("/LogIn");
+                }
             }
         } catch (error) {
             alert(error.response.data.message);

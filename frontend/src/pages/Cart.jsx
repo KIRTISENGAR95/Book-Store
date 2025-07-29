@@ -7,9 +7,20 @@ const Cart=()=>{
     const navigate = useNavigate();
     const [cart,setCart] = useState();
     const[Total,setTotal] = useState(0);
-    const headers={
-        id:localStorage.getItem("id"),
-        authorization:`Bearer ${localStorage.getItem("token")}`,
+    // Always fetch user id and token at component mount
+    const [userId, setUserId] = useState(localStorage.getItem("id"));
+    const [token, setToken] = useState(localStorage.getItem("token"));
+
+    useEffect(() => {
+        const id = localStorage.getItem("id");
+        const t = localStorage.getItem("token");
+        setUserId(id);
+        setToken(t);
+    }, []);
+
+    const headers = {
+        id: userId,
+        authorization: `Bearer ${token}`,
     };
 
     useEffect(()=>{
@@ -25,12 +36,17 @@ const Cart=()=>{
 
 
     const deleteItem = async(bookid)=>{
-        const response = await axios.put(
-            `http://localhost:3000/api/v1/remove-from-cart ${bookid}`,
-            {},
-            {headers }
-        );
-        alert(response.data.message);
+        try {
+            const response = await axios.put(
+                `http://localhost:3000/api/v1/remove-from-cart/${bookid}`,
+                {},
+                {headers }
+            );
+            alert(response.data.message);
+        } catch (error) {
+            console.error('Error removing from cart:', error);
+            alert('Failed to remove item from cart.');
+        }
     };
 
     useEffect(()=>{
@@ -44,15 +60,35 @@ const Cart=()=>{
     },[cart]);
     const PlaceOrder = async()=>{
         try {
+            if (!userId || userId === 'undefined' || !token) {
+                alert("You are not logged in. Please log in again.");
+                navigate("/login");
+                return;
+            }
+            // Construct order payload as expected by backend
+            const orderPayload = cart.map(item => ({ _id: item._id }));
+            const payload = { order: orderPayload };
+            if (!orderPayload.length || orderPayload.some(item => !item._id)) {
+                alert("Cart data is invalid. Please refresh the page.");
+                return;
+            }
+            console.log('Placing order with payload:', payload);
+            console.log('With headers:', headers);
             const response = await axios.post(
                 `http://localhost:3000/api/v1/place-order`,
-                {order:cart},
+                payload,
                 {headers}
             );
             alert(response.data.message);
             navigate("/profile/orderHistory");
         } catch (error) {
-            console.log(error);
+            console.error('Error placing order:', error);
+            if (error.response && error.response.data && error.response.data.message) {
+                alert('Backend error: ' + error.response.data.message);
+                console.error('Backend response:', error.response.data);
+            } else {
+                alert('Failed to place order.');
+            }
         }
     }
 
@@ -84,14 +120,16 @@ const Cart=()=>{
                     Your Cart
                 </h1>
                 {cart.map((items,i)=>(
-                    <div className="w-full my-4 rounded flex flex-col md:flex-row p-4 bg-zinc-800 justify-between items-center"
+                    <div className="w-full my-4 rounded flex flex-col md:flex-row p-4 bg-zinc-800 justify-between items-center min-h-40 md:min-h-56"
                         key={i}
                     >
-                        <img
-                            src={items.url}
-                            alt="/"
-                            className="h-[20vh] md:h-[10vh] object-cover"
-                        />
+                        <div className="h-40 md:h-56 flex items-center">
+                            <img
+                                src={"https://m.media-amazon.com/images/I/71YTHzI9gGL._SL1360_.jpg"}
+                                alt="/"
+                                className="h-full w-auto object-cover rounded"
+                            />
+                        </div>
                         <div className="w-full md:w-auto">
                             <h1 className="text-2xl text-zinc-100 font-semibold text-start mt-2 md:mt-0">
                                 {items.title}
@@ -105,7 +143,7 @@ const Cart=()=>{
                             <p className="text-normal text-zinc-300 mt-2 block md:hidden">
                                 {items.desc.slice(0,100)}...
                             </p>
-                            <div className="flex mt-4 w-full md:w-auto items-center justify-between"></div>
+                            <div className="flex mt-4 w-full md:w-auto items-center justify-between">
                                 <h2 className="text-zinc-100 text-3xl font-semibold flex">
                                     {items.price}
                                 </h2>
@@ -116,7 +154,8 @@ const Cart=()=>{
                                 </button>
                             </div>
                         </div>
-                    ))}
+                    </div>
+                ))}
             </>
         )}
         {cart && cart.length > 0 && (

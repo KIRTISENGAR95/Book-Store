@@ -16,7 +16,7 @@ const RecentlyAdded = () => {
                 "http://localhost:3000/api/v1/get-recent-books"
             );
             let books = response.data.data || [];
-            // Add the new book manually
+            
             books = [
                 ...books,
                 {
@@ -34,7 +34,7 @@ const RecentlyAdded = () => {
         fetch();
     }, []);
 
-    // Filter books based on search query
+    
     const filteredBooks = searchQuery
         ? Data?.filter(book =>
             book.title.toLowerCase().includes(searchQuery.toLowerCase())
